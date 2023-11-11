@@ -8,6 +8,8 @@ public class OutputView {
     public static final String EVENT_ANNOUNCEMENT_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
     public static final String TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE = "\n<할인 전 총주문 금액>";
     private static final String ERROR_PREFIX = "[ERROR] ";
+    public static final String NONE_MESSAGE = "없음";
+
     private static final DecimalFormat formatter = new DecimalFormat("#,###원");
 
 
@@ -22,6 +24,10 @@ public class OutputView {
     public static void printTotalAmountBeforeDiscount(int amount) {
         System.out.println(TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE);
         System.out.println(formatter.format(amount));
+    }
+
+    public static void printNone() {
+        System.out.print(NONE_MESSAGE);
     }
 
     public static void printErrorMessage(String errorMessage) {
