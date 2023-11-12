@@ -18,7 +18,7 @@ public class TotalAmount {
         return new TotalAmount(amount);
     }
 
-    public int getAmount() {
+    public int value() {
         return totalAmount;
     }
 

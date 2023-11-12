@@ -20,7 +20,7 @@ public class FinalAmount {
         return totalAmount - totalDiscount;
     }
 
-    public int getAmount() {
+    public int value() {
         return finalAmount;
     }
 }
