@@ -1,6 +1,7 @@
 package christmas.domain.menu;
 
 public enum MenuItem {
+    NONE("없음", 0, MenuType.NONE),
     MUSHROOM_SOUP("양송이수프", 6000, MenuType.APPETIZER),
     TAPAS("타파스", 5500, MenuType.APPETIZER),
     CAESAR_SALAD("시저샐러드", 8000, MenuType.APPETIZER),
