@@ -1,5 +1,7 @@
 package christmas.domain.event;
 
+import static christmas.utils.ValidationUtils.validatePositiveAmount;
+
 import christmas.domain.order.OrderItems;
 
 public class TotalAmount {
@@ -7,6 +9,7 @@ public class TotalAmount {
     private final int totalAmount;
 
     private TotalAmount(int totalAmount) {
+        validatePositiveAmount(totalAmount);
         this.totalAmount = totalAmount;
     }
 
@@ -19,7 +22,7 @@ public class TotalAmount {
         return totalAmount;
     }
 
-    public static int calculateTotalAmount(OrderItems orderItems) {
+    private static int calculateTotalAmount(OrderItems orderItems) {
         return orderItems.getOrderItems().entrySet().stream()
             .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
             .sum();
