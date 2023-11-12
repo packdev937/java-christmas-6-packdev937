@@ -1,5 +1,7 @@
 package christmas.view;
 
+import static christmas.utils.ConstantUtils.ORDER_ERROR_PREFIX;
+
 import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.order.OrderItems;
 import java.time.LocalDate;
@@ -47,13 +49,13 @@ public class InputView {
         inputs.stream().forEach(item -> {
             Matcher matcher = ORDER_PATTERN.matcher(item.trim());
             if (!matcher.matches()) {
-                throw new IllegalArgumentException("유효하지 않은 주문입니다. 다시 입력해 주세요.");
+                throw new IllegalArgumentException(ORDER_ERROR_PREFIX + "다시 입력해 주세요.");
             }
             try {
                 int quantity = Integer.parseInt(matcher.group(2).trim());
                 orderItems.put(matcher.group(1).trim(), quantity);
             } catch (NumberFormatException e) {
-                throw new IllegalArgumentException("유효하지 않은 주문입니다. 숫자를 입력해주세요.");
+                throw new IllegalArgumentException(ORDER_ERROR_PREFIX + "숫자를 입력해주세요.");
             }
         });
 

@@ -12,6 +12,7 @@ public class OrderItems {
     private final Map<MenuItem, Integer> orderItems;
 
     private OrderItems(Map<MenuItem, Integer> convertedItems) {
+        OrderValidator.validateOrder(convertedItems);
         this.orderItems = convertedItems;
     }
 
