@@ -20,6 +20,10 @@ public class Benefits {
         benefits.add(benefit);
     }
 
+    public int getTotalBenefits() {
+        return benefits.stream().mapToInt(Benefit::getDiscountAmount).sum();
+    }
+
     public List<Benefit> getBenefits() {
         return Collections.unmodifiableList(benefits);
     }
