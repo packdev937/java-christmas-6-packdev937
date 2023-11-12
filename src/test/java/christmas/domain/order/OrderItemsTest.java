@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertNotNull;
 import static org.junit.jupiter.api.Assertions.assertTrue;
 
 import christmas.domain.menu.MenuItem;
@@ -39,4 +40,13 @@ public class OrderItemsTest {
         assertTrue(result.isEmpty());
     }
 
+    @Test
+    public void 반환받은_OrderItmes은_항상_동일하다() {
+        Map<MenuItem, Integer> newOrderItems = orderItems.getOrderItems();
+
+        assertNotNull(newOrderItems);
+        assertEquals(3, newOrderItems.size());
+        assertTrue(newOrderItems.containsKey(MenuItem.BBQ_RIBS));
+        assertTrue(newOrderItems.containsKey(MenuItem.T_BONE_STEAK));
+    }
 }
