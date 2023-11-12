@@ -1,6 +1,7 @@
 package christmas.view;
 
 import camp.nextstep.edu.missionutils.Console;
+import christmas.domain.order.OrderItems;
 import java.time.LocalDate;
 import java.util.HashMap;
 import java.util.List;
@@ -28,11 +29,11 @@ public class InputView {
         }
     }
 
-    public static Map<String, Integer> readOrderMenu() {
+    public static OrderItems readOrderMenu() {
         try {
             System.out.println(ORDER_MENU_PROMPT);
             String input = Console.readLine();
-            return parseInput(input);
+            return OrderItems.from(parseInput(input));
         } catch (IllegalArgumentException error) {
             OutputView.printErrorMessage(error.getMessage());
             return readOrderMenu();
