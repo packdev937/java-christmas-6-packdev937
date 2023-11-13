@@ -1,5 +1,7 @@
 package christmas.controller;
 
+import christmas.domain.event.Promotion;
+import christmas.domain.event.TotalAmount;
 import christmas.domain.event.VisitDate;
 import christmas.domain.order.OrderItems;
 import christmas.view.InputView;
@@ -18,5 +20,10 @@ public class EventController {
         OutputView.printEventAnnouncement(visitDate.getDay());
 
         OutputView.printOrderItems(orderItems.toResponse());
+        TotalAmount totalAmount = TotalAmount.from(orderItems);
+        OutputView.printTotalAmountBeforeDiscount(totalAmount.value());
+
+        Promotion promotion = Promotion.from(totalAmount.value());
+        OutputView.printPromotionItem(promotion.item());
     }
 }

@@ -1,5 +1,9 @@
 package christmas.view;
 
+import christmas.domain.event.EventBadge;
+import christmas.domain.menu.MenuItem;
+import christmas.dto.BenefitsResponse;
+import christmas.dto.OrderItemsResponse;
 import java.text.DecimalFormat;
 
 public class OutputView {
@@ -7,6 +11,7 @@ public class OutputView {
     public static final String EVENT_START_MESSAGE = "안녕하세요! 우테코 식당 12월 이벤트 플래너입니다.";
     public static final String EVENT_ANNOUNCEMENT_MESSAGE = "12월 %d일에 우테코 식당에서 받을 이벤트 혜택 미리 보기!\n";
     public static final String ORDER_MENU_MESSAGE = "\n<주문 메뉴>";
+    public static final String PROMOTION_MESSAGE = "\n<증정 메뉴>";
     public static final String TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE = "\n<할인 전 총주문 금액>";
     public static final String EXPECTED_AMOUNT_AFTER_DISCOUNT_MESSAGE = "\n<할인 후 예상 결제 금액>";
     public static final String TOTAL_BENEFIT_MESSAGE = "\n<총혜택 금액>";
@@ -39,6 +44,11 @@ public class OutputView {
     public static void printExpectedAmountAfterDiscount(int finalAmount) {
         System.out.println(EXPECTED_AMOUNT_AFTER_DISCOUNT_MESSAGE);
         System.out.println(formatter.format(finalAmount));
+    }
+
+    public static void printPromotionItem(MenuItem item) {
+        System.out.println(PROMOTION_MESSAGE);
+        System.out.println(item.getName());
     }
 
     public static void printTotalBenefits(int totalBenefits) {
