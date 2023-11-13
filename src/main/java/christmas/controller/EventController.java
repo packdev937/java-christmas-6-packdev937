@@ -16,5 +16,7 @@ public class EventController {
         VisitDate visitDate = InputView.readVisitDate();
         OrderItems orderItems = InputView.readOrderMenu();
         OutputView.printEventAnnouncement(visitDate.getDay());
+
+        OutputView.printOrderItems(orderItems.toResponse());
     }
 }
