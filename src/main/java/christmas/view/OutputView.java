@@ -13,6 +13,7 @@ public class OutputView {
     public static final String ORDER_MENU_MESSAGE = "\n<주문 메뉴>";
     public static final String PROMOTION_MESSAGE = "\n<증정 메뉴>";
     public static final String TOTAL_ORDER_AMOUNT_BEFORE_DISCOUNT_MESSAGE = "\n<할인 전 총주문 금액>";
+    public static final String BENEFIT_LIST_MESSAGE = "\n<혜택 내역>";
     public static final String EXPECTED_AMOUNT_AFTER_DISCOUNT_MESSAGE = "\n<할인 후 예상 결제 금액>";
     public static final String TOTAL_BENEFIT_MESSAGE = "\n<총혜택 금액>";
 
@@ -58,6 +59,17 @@ public class OutputView {
 
     public static void printNone() {
         System.out.print(NONE_MESSAGE);
+    }
+
+    public static void printBenefits(BenefitsResponse response) {
+        System.out.println(BENEFIT_LIST_MESSAGE);
+        if (response.benefits().size() == 0) {
+            System.out.println(NONE_MESSAGE);
+            return;
+        }
+        response.benefits().stream().forEach((benefit) ->
+            System.out.println(
+                benefit.getDescription() + ": " + formatter.format(-benefit.getDiscountAmount())));
     }
 
     public static void printErrorMessage(String errorMessage) {

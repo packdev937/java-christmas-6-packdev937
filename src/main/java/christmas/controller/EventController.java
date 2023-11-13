@@ -1,5 +1,8 @@
 package christmas.controller;
 
+import christmas.domain.discount.DiscountContext;
+import christmas.domain.discount.DiscountPolicies;
+import christmas.domain.event.Benefits;
 import christmas.domain.event.Promotion;
 import christmas.domain.event.TotalAmount;
 import christmas.domain.event.VisitDate;
@@ -25,5 +28,10 @@ public class EventController {
 
         Promotion promotion = Promotion.from(totalAmount.value());
         OutputView.printPromotionItem(promotion.item());
+
+        DiscountContext discountContext = DiscountContext.of(visitDate, orderItems);
+        Benefits benefits = DiscountPolicies.getInstance().createBenefits(discountContext, totalAmount, promotion);
+        OutputView.printBenefits(benefits.toResponse());
+        OutputView.printTotalBenefits(benefits.calculateTotalBenefits());
     }
 }
