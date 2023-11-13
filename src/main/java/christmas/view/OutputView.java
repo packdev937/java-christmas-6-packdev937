@@ -16,7 +16,7 @@ public class OutputView {
     public static final String BENEFIT_LIST_MESSAGE = "\n<혜택 내역>";
     public static final String EXPECTED_AMOUNT_AFTER_DISCOUNT_MESSAGE = "\n<할인 후 예상 결제 금액>";
     public static final String TOTAL_BENEFIT_MESSAGE = "\n<총혜택 금액>";
-
+    public static final String EVENT_BADGE_MESSAGE = "\n<12월 이벤트 배지>";
     private static final String ERROR_PREFIX = "[ERROR] ";
     public static final String NONE_MESSAGE = "없음";
 
@@ -74,5 +74,17 @@ public class OutputView {
 
     public static void printErrorMessage(String errorMessage) {
         System.out.println(ERROR_PREFIX + errorMessage);
+    }
+
+    public static void printEventBadge(EventBadge eventBadge) {
+        if (eventBadge == EventBadge.NONE) {
+            printNone();
+            return;
+        }
+        System.out.println(EVENT_BADGE_MESSAGE);
+        System.out.println(eventBadge.getBadgeName());
+    }
+
+    private OutputView() {
     }
 }
