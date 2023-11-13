@@ -1,30 +1,25 @@
 package christmas.domain.event;
 
-import java.util.ArrayList;
-import java.util.Collections;
+import christmas.dto.BenefitsResponse;
 import java.util.List;
 
 public class Benefits {
 
     private final List<Benefit> benefits;
 
-    private Benefits() {
-        this.benefits = new ArrayList<>();
+    private Benefits(List<Benefit> benefits) {
+        this.benefits = benefits;
     }
 
-    public static Benefits getInstance() {
-        return new Benefits();
+    public static Benefits from(List<Benefit> benefits) {
+        return new Benefits(benefits);
     }
 
-    public void addBenefit(Benefit benefit) {
-        benefits.add(benefit);
-    }
-
-    public int getTotalBenefits() {
+    public int calculateTotalBenefits() {
         return benefits.stream().mapToInt(Benefit::getDiscountAmount).sum();
     }
 
-    public List<Benefit> getBenefits() {
-        return Collections.unmodifiableList(benefits);
+    public BenefitsResponse toResponse() {
+        return new BenefitsResponse(benefits);
     }
 }
