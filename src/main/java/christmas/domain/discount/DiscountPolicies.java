@@ -27,7 +27,7 @@ public class DiscountPolicies {
     public Benefits createBenefits(DiscountContext discountContext,
         TotalAmount totalAmount, Promotion promotion) {
         if (totalAmount.value() < 10000) {
-            return Benefits.from(new ArrayList<>());
+            return Benefits.from(new ArrayList<>(), null);
         }
         List<Benefit> benefits = policies.stream()
             .filter(policy -> policy.isApplicable(discountContext)).map(policy ->
@@ -37,7 +37,7 @@ public class DiscountPolicies {
         if (promotion.item().equals(MenuItem.CHAMPAGNE)) {
             benefits.add(Benefit.of("증정 이벤트", MenuItem.CHAMPAGNE.getPrice()));
         }
-        return Benefits.from(benefits);
+        return Benefits.from(benefits, promotion);
     }
 
     public static DiscountPolicies getInstance() {

@@ -4,7 +4,6 @@ import christmas.domain.discount.DiscountContext;
 import christmas.domain.discount.DiscountPolicies;
 import christmas.domain.event.Benefits;
 import christmas.domain.event.EventBadge;
-import christmas.domain.event.FinalAmount;
 import christmas.domain.event.Promotion;
 import christmas.domain.event.TotalAmount;
 import christmas.domain.event.VisitDate;
@@ -32,12 +31,14 @@ public class EventController {
         OutputView.printPromotionItem(promotion.item());
 
         DiscountContext discountContext = DiscountContext.of(visitDate, orderItems);
-        Benefits benefits = DiscountPolicies.getInstance().createBenefits(discountContext, totalAmount, promotion);
+        DiscountPolicies discountPolicies = DiscountPolicies.getInstance();
+        Benefits benefits = discountPolicies
+            .createBenefits(discountContext, totalAmount, promotion);
         OutputView.printBenefits(benefits.toResponse());
         OutputView.printTotalBenefits(benefits.calculateTotalBenefits());
 
-        FinalAmount finalAmount = FinalAmount.of(totalAmount.value(), benefits.calculateTotalBenefits());
-        OutputView.printExpectedAmountAfterDiscount(finalAmount.value());
+        OutputView.printExpectedAmountAfterDiscount(benefits.calculateFinalAmount(
+            totalAmount.value()));
 
         EventBadge badge = EventBadge.getBadgeByAmount(benefits.calculateTotalBenefits());
         OutputView.printEventBadge(badge);
