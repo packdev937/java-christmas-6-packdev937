@@ -5,6 +5,7 @@ import christmas.domain.menu.MenuItem;
 public class Promotion {
 
     private static final int PROMOTION_CRITERION = 120000;
+    private final String description = "증정 이벤트";
     private final MenuItem item;
 
     private Promotion(MenuItem promotion) {
@@ -24,5 +25,9 @@ public class Promotion {
 
     public MenuItem item() {
         return item;
+    }
+
+    public String getDescription() {
+        return description;
     }
 }

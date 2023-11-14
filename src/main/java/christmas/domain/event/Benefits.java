@@ -18,6 +18,10 @@ public class Benefits {
         return new Benefits(benefits, promotion);
     }
 
+    public static Benefits emptyBenefits() {
+        return new Benefits(null, null);
+    }
+
     public int calculateTotalBenefits() {
         return benefits.stream().mapToInt(Benefit::getDiscountAmount).sum();
     }
