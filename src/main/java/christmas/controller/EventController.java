@@ -8,13 +8,16 @@ import christmas.domain.event.Promotion;
 import christmas.domain.event.TotalAmount;
 import christmas.domain.event.VisitDate;
 import christmas.domain.order.OrderItems;
+import christmas.service.EventFacadeService;
 import christmas.view.InputView;
 import christmas.view.OutputView;
 
 public class EventController {
 
+    private final EventFacadeService eventFacadeService;
 
-    public EventController() {
+    public EventController(EventFacadeService eventFacadeService) {
+        this.eventFacadeService = eventFacadeService;
     }
 
     public void run() {
@@ -24,7 +27,7 @@ public class EventController {
         OutputView.printEventAnnouncement(visitDate.getDay());
 
         OutputView.printOrderItems(orderItems.toResponse());
-        TotalAmount totalAmount = TotalAmount.from(orderItems);
+        TotalAmount totalAmount = eventFacadeService.calculateTotalAmount(orderItems);
         OutputView.printTotalAmountBeforeDiscount(totalAmount.value());
 
         Promotion promotion = Promotion.from(totalAmount.value());
