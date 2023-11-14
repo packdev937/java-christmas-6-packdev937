@@ -27,10 +27,10 @@ public class WeekendDiscountPolicy implements DiscountPolicy {
         if (!isApplicable(discountContext)) {
             return 0;
         }
-        return discountContext.getOrderItems().getItemsByType(MenuType.MAIN)
-            .entrySet()
+        return (int) discountContext.getOrderItems().getItemsByType(MenuType.MAIN)
+            .keySet()
             .stream()
-            .mapToInt(entry -> entry.getValue()) // Get the quantity from the Map's value
-            .sum() * DISCOUNT_AMOUNT_PER_MAIN;
+            .distinct()
+            .count() * DISCOUNT_AMOUNT_PER_MAIN;
     }
 }
