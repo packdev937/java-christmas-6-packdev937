@@ -2,7 +2,6 @@ package christmas.domain.event;
 
 import static christmas.utils.ConstantUtils.*;
 
-import christmas.domain.menu.MenuItem;
 import christmas.dto.BenefitsResponse;
 import java.util.Collections;
 import java.util.List;
@@ -27,14 +26,6 @@ public class Benefits {
 
     public int calculateTotalBenefits() {
         return benefits.stream().mapToInt(Benefit::getDiscountAmount).sum();
-    }
-
-    public int calculateFinalAmount(int totalAmount) {
-        int totalBenefits = calculateTotalBenefits();
-        if (promotion != null && promotion.item().equals(MenuItem.CHAMPAGNE)) {
-            totalBenefits -= promotion.item().getPrice();
-        }
-        return totalAmount - totalBenefits;
     }
 
     public BenefitsResponse toResponse() {

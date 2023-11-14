@@ -40,8 +40,11 @@ public class EventController {
         OutputView.printBenefits(benefits.toResponse());
         OutputView.printTotalBenefits(benefits.calculateTotalBenefits());
 
-        OutputView.printExpectedAmountAfterDiscount(benefits.calculateFinalAmount(
-            totalAmount.value()));
+    private void displayExpectedAmountAfterDiscount(Benefits benefits, TotalAmount totalAmount,
+        OrderItems orderItems) {
+        OutputView.printExpectedAmountAfterDiscount(
+            eventFacadeService.calculateFinalAmount(benefits, totalAmount, orderItems));
+    }
 
         EventBadge badge = EventBadge.getBadgeByAmount(benefits.calculateTotalBenefits());
         OutputView.printEventBadge(badge);

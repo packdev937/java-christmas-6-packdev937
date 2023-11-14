@@ -36,4 +36,8 @@ public class OrderItems {
     public OrderItemsResponse toResponse() {
         return new OrderItemsResponse(orderItems);
     }
+
+    public boolean containPromotion() {
+        return orderItems.containsKey(MenuItem.CHAMPAGNE);
+    }
 }

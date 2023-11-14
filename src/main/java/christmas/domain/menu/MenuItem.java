@@ -39,7 +39,7 @@ public enum MenuItem {
     public static MenuItem findMenu(String name) {
         for (MenuItem menuItem : MenuItem.values()) {
             if (menuItem.getName().equalsIgnoreCase(name)) {
-                return menuItem;
+	return menuItem;
             }
         }
         return null;

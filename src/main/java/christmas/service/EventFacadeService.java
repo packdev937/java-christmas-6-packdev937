@@ -1,6 +1,9 @@
 package christmas.service;
 
+import christmas.domain.event.Benefits;
+import christmas.domain.event.Promotion;
 import christmas.domain.event.TotalAmount;
+import christmas.domain.menu.MenuItem;
 import christmas.domain.order.OrderItems;
 
 public class EventFacadeService {
@@ -11,4 +14,14 @@ public class EventFacadeService {
             .sum();
         return TotalAmount.from(amount);
     }
+
+    public int calculateFinalAmount(Benefits benefits, TotalAmount totalAmount,
+        OrderItems orderItems) {
+        int totalBenefits = benefits.calculateTotalBenefits();
+        if (!orderItems.containPromotion()) {
+            totalBenefits -= MenuItem.CHAMPAGNE.getPrice();
+        }
+        return totalAmount.value() - totalBenefits;
+    }
+
 }
