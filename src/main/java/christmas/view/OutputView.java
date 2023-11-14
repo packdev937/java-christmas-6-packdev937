@@ -63,7 +63,7 @@ public class OutputView {
 
     public static void printBenefits(BenefitsResponse response) {
         System.out.println(BENEFIT_LIST_MESSAGE);
-        if (response.benefits().size() == 0) {
+        if (response.benefits().isEmpty()) {
             System.out.println(NONE_MESSAGE);
             return;
         }

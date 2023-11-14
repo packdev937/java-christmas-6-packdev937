@@ -26,7 +26,7 @@ public class DiscountPolicies {
 
     public Benefits createBenefits(DiscountContext discountContext,
         TotalAmount totalAmount, Promotion promotion) {
-        if (isEligibleForBenefits(totalAmount)) {
+        if (!isEligibleForBenefits(totalAmount)) {
             return Benefits.emptyBenefits();
         }
         List<Benefit> benefits = calculateApplicableBenefits(discountContext);

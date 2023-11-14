@@ -1,7 +1,10 @@
 package christmas.domain.event;
 
+import static christmas.utils.ConstantUtils.*;
+
 import christmas.domain.menu.MenuItem;
 import christmas.dto.BenefitsResponse;
+import java.util.Collections;
 import java.util.List;
 
 public class Benefits {
@@ -19,7 +22,7 @@ public class Benefits {
     }
 
     public static Benefits emptyBenefits() {
-        return new Benefits(null, null);
+        return new Benefits(Collections.emptyList(), Promotion.from(NONE));
     }
 
     public int calculateTotalBenefits() {
