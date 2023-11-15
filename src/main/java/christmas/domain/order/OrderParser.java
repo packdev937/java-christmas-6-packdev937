@@ -1,6 +1,7 @@
 package christmas.domain.order;
 
 import static christmas.utils.ConstantUtils.ORDER_ERROR_PREFIX;
+import static christmas.utils.ConstantUtils.RETRY_INPUT_MESSAGE;
 
 import java.util.HashMap;
 import java.util.List;
@@ -19,10 +20,17 @@ public class OrderParser {
         for (String item : inputs) {
             Matcher matcher = ORDER_PATTERN.matcher(item.trim());
             if (!matcher.matches()) {
-	throw new IllegalArgumentException(ORDER_ERROR_PREFIX + "다시 입력해 주세요.");
+	throw new IllegalArgumentException(ORDER_ERROR_PREFIX + RETRY_INPUT_MESSAGE);
             }
+            String menuName = matcher.group(1).trim();
             int quantity = Integer.parseInt(matcher.group(2).trim());
-            orderItems.put(matcher.group(1).trim(), quantity);
+
+            if (orderItems.containsKey(menuName)) {
+	throw new IllegalArgumentException(
+	    ORDER_ERROR_PREFIX + "중복된 메뉴를 입력했습니다." + RETRY_INPUT_MESSAGE);
+            }
+
+            orderItems.put(menuName, quantity);
         }
 
         return orderItems;
