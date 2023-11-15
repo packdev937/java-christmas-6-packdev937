@@ -28,9 +28,9 @@ public class WeekendDiscountPolicy implements DiscountPolicy {
             return 0;
         }
         return (int) discountContext.getOrderItems().getItemsByType(MenuType.MAIN)
-            .keySet()
+            .values()
             .stream()
-            .distinct()
-            .count() * DISCOUNT_AMOUNT_PER_MAIN;
+            .mapToInt(Integer::intValue)
+            .sum() * DISCOUNT_AMOUNT_PER_MAIN;
     }
 }

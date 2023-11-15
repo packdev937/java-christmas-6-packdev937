@@ -61,7 +61,7 @@ public class WeekendDiscountPolicyTest {
 
         DiscountContext context = DiscountContext.of(weekdayVisitDate, orderItems);
 
-        assertEquals(order.size() * DISCOUNT_CRITERION,
+        assertEquals(3 * DISCOUNT_CRITERION,
             weekendDiscountPolicy.calculateDiscount(context));
     }
 

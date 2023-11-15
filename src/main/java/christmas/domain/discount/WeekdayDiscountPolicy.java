@@ -28,10 +28,10 @@ public class WeekdayDiscountPolicy implements DiscountPolicy {
         if (!isApplicable(discountContext)) {
             return 0;
         }
-        return (int) discountContext.getOrderItems().getItemsByType(MenuType.DESSERT)
-            .keySet()
+        return discountContext.getOrderItems().getItemsByType(MenuType.DESSERT)
+            .values()
             .stream()
-            .distinct()
-            .count() * DISCOUNT_AMOUNT_PER_DESSERT;
+            .mapToInt(Integer::intValue)
+            .sum() * DISCOUNT_AMOUNT_PER_DESSERT;
     }
 }
