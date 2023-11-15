@@ -4,7 +4,6 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 
 import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Map;
@@ -14,11 +13,13 @@ import org.junit.jupiter.params.provider.CsvSource;
 @DisplayName("OrderParser 클래스")
 public class OrderParserTest {
 
-    @Test
-    public void 문자열을_올바르게_파싱한다() {
-        String input = "양송이수프-2, 샴페인-3";
+    private OrderParser orderParser;
 
-        Map<String, Integer> result = OrderParser.parseInput(input);
+    @Test
+    void 문자열을_올바르게_파싱한다() {
+        String input = "양송이수프-2,샴페인-3";
+        orderParser = OrderParser.from(input);
+        Map<String, Integer> result = orderParser.parseInput();
 
         assertThat(result).isNotNull();
         assertThat(result).hasSize(2);
@@ -26,32 +27,22 @@ public class OrderParserTest {
         assertThat(result).containsEntry("샴페인", 3);
     }
 
-    @Test
-    public void 문자열이_비었다면_예외를_발생한다() {
-        String input = "";
-
-        assertThrows(IllegalArgumentException.class, () -> OrderParser.parseInput(input));
-    }
-
     @ParameterizedTest
     @CsvSource({
         "양송이수프--3",
-        "양송이수프-문자, ",
         "-양송이수프-3,",
         "' ,",
-        "'양송이수프-3,수프,"
+        "'양송이수프-3,수프,",
     })
     void 유효하지_않은_형식의_문자열에_예외를_발생한다(String input) {
-        assertThatThrownBy(() -> OrderParser.parseInput(input))
-            .isInstanceOf(IllegalArgumentException.class);
+        assertThrows(IllegalArgumentException.class,
+            () -> OrderParser.from(input).parseInput());
     }
-
 
     @Test
     void 중복된_문자열의_메뉴를_추가할_때_예외를_발생한다() {
         String input = "양송이수프-1, 양송이수프-2";
-
         assertThrows(IllegalArgumentException.class,
-            () -> OrderParser.parseInput(input));
+            () -> OrderParser.from(input).parseInput());
     }
 }

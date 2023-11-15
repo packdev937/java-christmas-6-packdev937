@@ -33,7 +33,8 @@ public class InputView {
         try {
             System.out.println(ORDER_MENU_PROMPT);
             String input = Console.readLine();
-            Map<String, Integer> parsedOrder = OrderParser.parseInput(input);
+            OrderParser orderParser = OrderParser.from(input);
+            Map<String, Integer> parsedOrder = orderParser.parseInput();
             Map<MenuItem, Integer> convertedOrder = OrderItemFactory.convertToMenuItems(
 	parsedOrder);
             return OrderItems.from(convertedOrder);
