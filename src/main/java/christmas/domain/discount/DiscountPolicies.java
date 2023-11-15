@@ -11,7 +11,6 @@ import java.util.stream.Collectors;
 
 public class DiscountPolicies {
 
-    private final int BENEFIT_CRITERION = 10000;
     private final List<DiscountPolicy> policies;
 
     public DiscountPolicies(List<DiscountPolicy> discountPolicies) {
@@ -26,11 +25,11 @@ public class DiscountPolicies {
         List<Benefit> benefits = calculateApplicableBenefits(discountContext);
         applyPromotionToBenefits(benefits, promotion);
 
-        return Benefits.from(benefits, promotion);
+        return Benefits.from(benefits);
     }
 
     private boolean isTotalAmountEnough(TotalAmount totalAmount) {
-        return totalAmount.value() >= BENEFIT_CRITERION;
+        return totalAmount.isDiscountApplicable();
     }
 
     private List<Benefit> calculateApplicableBenefits(DiscountContext discountContext) {

@@ -9,19 +9,17 @@ import java.util.List;
 public class Benefits {
 
     private final List<Benefit> benefits;
-    private final Promotion promotion;
 
-    private Benefits(List<Benefit> benefits, Promotion promotion) {
+    private Benefits(List<Benefit> benefits) {
         this.benefits = benefits;
-        this.promotion = promotion;
     }
 
-    public static Benefits from(List<Benefit> benefits, Promotion promotion) {
-        return new Benefits(benefits, promotion);
+    public static Benefits from(List<Benefit> benefits) {
+        return new Benefits(benefits);
     }
 
     public static Benefits emptyBenefits() {
-        return new Benefits(Collections.emptyList(), Promotion.from(NONE));
+        return new Benefits(Collections.emptyList());
     }
 
     public int calculateTotalBenefits() {

@@ -5,6 +5,7 @@ import static christmas.utils.ValidationUtils.validatePositiveAmount;
 public class TotalAmount {
 
     private final int PROMOTION_CRITERION = 120000;
+    private final int BENEFIT_CRITERION = 10000;
     private final int totalAmount;
 
     private TotalAmount(int totalAmount) {
@@ -22,5 +23,9 @@ public class TotalAmount {
 
     public boolean isPromotionApplicable() {
         return this.totalAmount >= PROMOTION_CRITERION;
+    }
+
+    public boolean isDiscountApplicable() {
+        return this.totalAmount >= BENEFIT_CRITERION;
     }
 }
