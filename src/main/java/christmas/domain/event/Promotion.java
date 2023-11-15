@@ -4,7 +4,6 @@ import christmas.domain.menu.MenuItem;
 
 public class Promotion {
 
-    private static final int PROMOTION_CRITERION = 120000;
     private final String description = "증정 이벤트";
     private final MenuItem item;
 
@@ -12,15 +11,11 @@ public class Promotion {
         this.item = promotion;
     }
 
-    public static Promotion from(int totalAmount) {
-        if (isApplicable(totalAmount)) {
+    public static Promotion from(TotalAmount totalAmount) {
+        if (totalAmount.isPromotionApplicable()) {
             return new Promotion(MenuItem.CHAMPAGNE);
         }
         return new Promotion(MenuItem.NONE);
-    }
-
-    private static boolean isApplicable(int orderTotalAmount) {
-        return orderTotalAmount >= PROMOTION_CRITERION;
     }
 
     public MenuItem item() {

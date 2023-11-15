@@ -9,7 +9,7 @@ import christmas.domain.order.OrderItems;
 public class EventFacadeService {
 
     public Promotion evaluatePromotion(TotalAmount totalAmount) {
-        return Promotion.from(totalAmount.value());
+        return Promotion.from(totalAmount);
     }
 
     public TotalAmount calculateTotalAmountBeforeDiscount(OrderItems orderItems) {
@@ -22,7 +22,7 @@ public class EventFacadeService {
     public int calculateFinalAmount(Benefits benefits, TotalAmount totalAmount,
         OrderItems orderItems) {
         int totalBenefits = benefits.calculateTotalBenefits();
-        if (!orderItems.containPromotion()) {
+        if (totalAmount.isPromotionApplicable() && !orderItems.containPromotion()) {
             totalBenefits -= MenuItem.CHAMPAGNE.getPrice();
         }
         return totalAmount.value() - totalBenefits;
