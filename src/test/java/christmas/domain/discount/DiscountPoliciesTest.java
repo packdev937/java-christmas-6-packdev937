@@ -43,7 +43,7 @@ public class DiscountPoliciesTest {
     @Test
     void 할인_전_총금액이_10000원_미만이면_할인_혜택은_적용되지_않는다() {
         TotalAmount totalAmount = TotalAmount.from(9000);
-        Promotion promotion = Promotion.from(9000);
+        Promotion promotion = Promotion.from(totalAmount);
         DiscountContext discountContext = DiscountContext.of(null, null);
 
         Benefits benefits = discountPolicies.createBenefits(discountContext, totalAmount,

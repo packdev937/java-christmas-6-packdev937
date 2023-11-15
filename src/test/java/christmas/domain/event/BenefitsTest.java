@@ -15,8 +15,7 @@ public class BenefitsTest {
     void 비어있지_않은_경우_할인_금액의_합계를_계산한다() {
         Benefit benefit1 = Benefit.of("100원 할인 정책", 100);
         Benefit benefit2 = Benefit.of("1000원 할인 정책", 1000);
-        Promotion promotion = Promotion.from(120000);
-        Benefits benefits = Benefits.from(Arrays.asList(benefit1, benefit2), promotion);
+        Benefits benefits = Benefits.from(Arrays.asList(benefit1, benefit2));
 
         int totalBenefits = benefits.calculateTotalBenefits();
 
@@ -36,8 +35,7 @@ public class BenefitsTest {
     void 동일한_데이터를_BenefitsResponse를_통해_반환한다() {
         Benefit benefit1 = Benefit.of("100원 할인", 100);
         Benefit benefit2 = Benefit.of("1000원 할인", 1100);
-        Promotion promotion = Promotion.from(120000);
-        Benefits benefits = Benefits.from(Arrays.asList(benefit1, benefit2), promotion);
+        Benefits benefits = Benefits.from(Arrays.asList(benefit1, benefit2));
 
         BenefitsResponse response = benefits.toResponse();
 

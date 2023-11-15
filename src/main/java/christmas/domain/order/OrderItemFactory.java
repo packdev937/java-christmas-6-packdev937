@@ -15,7 +15,7 @@ public class OrderItemFactory {
             MenuItem menuItem = MenuItem.findMenu(entry.getKey());
             if (menuItem == null) {
 	throw new IllegalArgumentException(
-	    ORDER_ERROR_PREFIX + "메뉴 " + entry.getKey() + "는 존재 하지 않습니다."
+	    ORDER_ERROR_PREFIX + "메뉴 " + entry.getKey() + "는 존재 하지 않습니다. "
 	        + RETRY_INPUT_MESSAGE);
             }
             orderItems.put(menuItem, entry.getValue());
