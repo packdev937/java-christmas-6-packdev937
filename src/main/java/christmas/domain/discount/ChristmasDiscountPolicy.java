@@ -1,9 +1,9 @@
 package christmas.domain.discount;
 
+import static christmas.utils.ConstantUtils.*;
+
 public class ChristmasDiscountPolicy implements DiscountPolicy {
 
-    private static final int START_DAY = 1;
-    private static final int END_DAY = 25;
     private static final int START_DISCOUNT_CRITERION = 1000;
     private static final int DAILY_INCREMENT_CRITERION = 100;
 
@@ -17,7 +17,7 @@ public class ChristmasDiscountPolicy implements DiscountPolicy {
     @Override
     public boolean isApplicable(DiscountContext discountContext) {
         int visitDay = discountContext.getVisitDate().getDay();
-        return visitDay >= START_DAY && visitDay <= END_DAY;
+        return visitDay >= START_DAY && visitDay <= CHRISTMAS_DAY;
     }
 
     @Override

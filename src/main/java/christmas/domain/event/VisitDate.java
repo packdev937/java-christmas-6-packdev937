@@ -1,5 +1,7 @@
 package christmas.domain.event;
 
+import static christmas.utils.ConstantUtils.*;
+
 import java.time.LocalDate;
 
 public class VisitDate {
@@ -16,8 +18,8 @@ public class VisitDate {
     }
 
     private void validateDayInRange(int day) {
-        if (day < 1 || day > 31) {
-            throw new IllegalArgumentException("날짜는 1일에서 31일 사이어야 합니다.");
+        if (day < START_DAY || day > END_DAY) {
+            throw new IllegalArgumentException("날짜는 1이상 31이하의 숫자입니다.");
         }
     }
 

@@ -1,5 +1,7 @@
 package christmas.domain.discount;
 
+import static christmas.utils.ConstantUtils.*;
+
 import christmas.domain.menu.MenuType;
 import java.time.DayOfWeek;
 import java.time.LocalDate;
@@ -17,7 +19,7 @@ public class WeekendDiscountPolicy implements DiscountPolicy {
 
     @Override
     public boolean isApplicable(DiscountContext discountContext) {
-        DayOfWeek dayOfWeek = LocalDate.of(2023, 12, discountContext.getVisitDate().getDay())
+        DayOfWeek dayOfWeek = LocalDate.of(EVENT_YEAR, EVENT_MONTH, discountContext.getVisitDate().getDay())
             .getDayOfWeek();
         return dayOfWeek == DayOfWeek.FRIDAY || dayOfWeek == DayOfWeek.SATURDAY;
     }
