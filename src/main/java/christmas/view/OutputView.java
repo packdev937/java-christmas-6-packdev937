@@ -69,7 +69,7 @@ public class OutputView {
         }
         response.benefits().stream().forEach((benefit) ->
             System.out.println(
-                benefit.getDescription() + ": " + formatter.format(-benefit.getDiscountAmount())));
+	benefit.getDescription() + ": " + formatter.format(-benefit.getDiscountAmount())));
     }
 
     public static void printErrorMessage(String errorMessage) {
@@ -77,11 +77,11 @@ public class OutputView {
     }
 
     public static void printEventBadge(EventBadge eventBadge) {
+        System.out.println(EVENT_BADGE_MESSAGE);
         if (eventBadge == EventBadge.NONE) {
             printNone();
             return;
         }
-        System.out.println(EVENT_BADGE_MESSAGE);
         System.out.println(eventBadge.getBadgeName());
     }
 
