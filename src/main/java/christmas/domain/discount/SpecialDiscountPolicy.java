@@ -1,10 +1,12 @@
 package christmas.domain.discount;
 
 import christmas.domain.event.VisitDate;
+import java.util.List;
 
 public class SpecialDiscountPolicy implements DiscountPolicy {
 
     private static final int SPECIAL_DISCOUNT_AMOUNT = 1000;
+    private final List<Integer> specialDays = List.of(3, 10, 17, 24, 25, 31);
 
     private final String description = "특별 할인";
 
@@ -27,7 +29,7 @@ public class SpecialDiscountPolicy implements DiscountPolicy {
     }
 
     private boolean isSpecialDay(VisitDate date) {
-        int day = date.getDay();
-        return day == 3 || day == 10 || day == 17 || day == 24 || day == 25 || day == 31;
+        Integer day = date.getDay();
+        return specialDays.contains(day);
     }
 }
