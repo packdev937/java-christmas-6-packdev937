@@ -15,9 +15,12 @@ import christmas.view.OutputView;
 public class EventController {
 
     private final EventFacadeService eventFacadeService;
+    private final DiscountPolicies discountPolicies;
 
-    public EventController(EventFacadeService eventFacadeService) {
+    public EventController(EventFacadeService eventFacadeService,
+        DiscountPolicies discountPolicies) {
         this.eventFacadeService = eventFacadeService;
+        this.discountPolicies = discountPolicies;
     }
 
     public void run() {

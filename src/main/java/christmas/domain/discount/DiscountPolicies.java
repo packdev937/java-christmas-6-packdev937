@@ -5,7 +5,6 @@ import christmas.domain.event.Benefits;
 import christmas.domain.event.Promotion;
 import christmas.domain.event.TotalAmount;
 import christmas.domain.menu.MenuItem;
-import java.util.Arrays;
 import java.util.Collections;
 import java.util.List;
 import java.util.stream.Collectors;
@@ -15,18 +14,13 @@ public class DiscountPolicies {
     private final int BENEFIT_CRITERION = 10000;
     private final List<DiscountPolicy> policies;
 
-    private DiscountPolicies() {
-        this.policies = Arrays.asList(
-            new ChristmasDiscountPolicy(),
-            new WeekdayDiscountPolicy(),
-            new WeekendDiscountPolicy(),
-            new SpecialDiscountPolicy()
-        );
+    public DiscountPolicies(List<DiscountPolicy> discountPolicies) {
+        this.policies = discountPolicies;
     }
 
     public Benefits createBenefits(DiscountContext discountContext,
         TotalAmount totalAmount, Promotion promotion) {
-        if (!isEligibleForBenefits(totalAmount)) {
+        if (!isTotalAmountEnough(totalAmount)) {
             return Benefits.emptyBenefits();
         }
         List<Benefit> benefits = calculateApplicableBenefits(discountContext);
@@ -35,7 +29,7 @@ public class DiscountPolicies {
         return Benefits.from(benefits, promotion);
     }
 
-    private boolean isEligibleForBenefits(TotalAmount totalAmount) {
+    private boolean isTotalAmountEnough(TotalAmount totalAmount) {
         return totalAmount.value() >= BENEFIT_CRITERION;
     }
 
@@ -51,10 +45,6 @@ public class DiscountPolicies {
         if (promotion.item() != MenuItem.NONE) {
             benefits.add(Benefit.of(promotion.getDescription(), promotion.item().getPrice()));
         }
-    }
-
-    public static DiscountPolicies getInstance() {
-        return new DiscountPolicies();
     }
 
     public List<DiscountPolicy> asList() {

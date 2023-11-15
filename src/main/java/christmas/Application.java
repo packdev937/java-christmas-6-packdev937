@@ -1,12 +1,13 @@
 package christmas;
 
+import christmas.config.ApplicationConfig;
 import christmas.controller.EventController;
-import christmas.service.EventFacadeService;
 
 public class Application {
 
     public static void main(String[] args) {
-        EventController eventController = new EventController(new EventFacadeService());
+        ApplicationConfig applicationConfig = new ApplicationConfig();
+        EventController eventController = applicationConfig.eventController();
         eventController.run();
     }
 }
