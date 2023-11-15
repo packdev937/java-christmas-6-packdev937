@@ -24,14 +24,35 @@ public class EventController {
     }
 
     public void run() {
-        OutputView.printEventStartMessage();
-        VisitDate visitDate = InputView.readVisitDate();
-        OrderItems orderItems = InputView.readOrderMenu();
-        OutputView.printEventAnnouncement(visitDate.getDay());
+        VisitDate visitDate = getInputVisitDate();
+        OrderItems orderItems = getInputOrderItem();
+        displayEventAnnouncement(visitDate);
 
+        TotalAmount totalAmount = calculateAndDisplayTotalOrder(orderItems);
+        Promotion promotion = displayPromotion(totalAmount);
+
+        displayBenefits(visitDate, orderItems, totalAmount, promotion);
+    }
+
+    private VisitDate getInputVisitDate() {
+        OutputView.printEventStartMessage();
+        return InputView.readVisitDate();
+    }
+
+    private OrderItems getInputOrderItem() {
+        return InputView.readOrderMenu();
+    }
+
+    private void displayEventAnnouncement(VisitDate visitDate) {
+        OutputView.printEventAnnouncement(visitDate.getDay());
+    }
+
+    private TotalAmount calculateAndDisplayTotalOrder(OrderItems orderItems) {
         OutputView.printOrderItems(orderItems.toResponse());
-        TotalAmount totalAmount = eventFacadeService.calculateTotalAmount(orderItems);
+        TotalAmount totalAmount = eventFacadeService.calculateTotalAmountBeforeDiscount(orderItems);
         OutputView.printTotalAmountBeforeDiscount(totalAmount.value());
+        return totalAmount;
+    }
 
     private Promotion displayPromotion(TotalAmount totalAmount) {
         Promotion promotion = eventFacadeService.evaluatePromotion(totalAmount);
@@ -39,12 +60,31 @@ public class EventController {
         return promotion;
     }
 
+    private void displayBenefits(VisitDate visitDate, OrderItems orderItems,
+        TotalAmount totalAmount,
+        Promotion promotion) {
         DiscountContext discountContext = DiscountContext.of(visitDate, orderItems);
-        DiscountPolicies discountPolicies = DiscountPolicies.getInstance();
-        Benefits benefits = discountPolicies
-            .createBenefits(discountContext, totalAmount, promotion);
+        Benefits benefits = calculateBenefits(discountContext, totalAmount, promotion);
+
+        displayBenefits(benefits);
+        displayTotalBenefits(benefits);
+        displayExpectedAmountAfterDiscount(benefits, totalAmount, orderItems);
+        printEventBadge(benefits);
+    }
+
+
+    private Benefits calculateBenefits(DiscountContext discountContext, TotalAmount totalAmount,
+        Promotion promotion) {
+        return discountPolicies.createBenefits(discountContext, totalAmount, promotion);
+    }
+
+    private void displayBenefits(Benefits benefits) {
         OutputView.printBenefits(benefits.toResponse());
+    }
+
+    private void displayTotalBenefits(Benefits benefits) {
         OutputView.printTotalBenefits(benefits.calculateTotalBenefits());
+    }
 
     private void displayExpectedAmountAfterDiscount(Benefits benefits, TotalAmount totalAmount,
         OrderItems orderItems) {
@@ -52,6 +92,7 @@ public class EventController {
             eventFacadeService.calculateFinalAmount(benefits, totalAmount, orderItems));
     }
 
+    private void printEventBadge(Benefits benefits) {
         EventBadge badge = EventBadge.getBadgeByAmount(benefits.calculateTotalBenefits());
         OutputView.printEventBadge(badge);
     }
