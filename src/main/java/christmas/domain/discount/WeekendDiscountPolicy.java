@@ -27,7 +27,7 @@ public class WeekendDiscountPolicy implements DiscountPolicy {
         if (!isApplicable(discountContext)) {
             return 0;
         }
-        return (int) discountContext.getOrderItems().getItemsByType(MenuType.MAIN)
+        return discountContext.getOrderItems().getItemsByType(MenuType.MAIN)
             .values()
             .stream()
             .mapToInt(Integer::intValue)

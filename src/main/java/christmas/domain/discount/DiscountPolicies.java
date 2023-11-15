@@ -37,6 +37,7 @@ public class DiscountPolicies {
             .filter(policy -> policy.isApplicable(discountContext))
             .map(policy -> Benefit.of(policy.getDescription(),
 	policy.calculateDiscount(discountContext)))
+            .filter(benefit -> benefit.getDiscountAmount() > 0)
             .collect(Collectors.toList());
     }
 

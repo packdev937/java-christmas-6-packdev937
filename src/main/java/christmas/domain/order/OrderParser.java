@@ -27,7 +27,7 @@ public class OrderParser {
 
             if (orderItems.containsKey(menuName)) {
 	throw new IllegalArgumentException(
-	    ORDER_ERROR_PREFIX + "중복된 메뉴를 입력했습니다." + RETRY_INPUT_MESSAGE);
+	    ORDER_ERROR_PREFIX + RETRY_INPUT_MESSAGE);
             }
 
             orderItems.put(menuName, quantity);
