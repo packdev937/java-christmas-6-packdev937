@@ -1,12 +1,15 @@
 package christmas.view;
 
 
+import static christmas.utils.ConstantUtils.*;
+
 import camp.nextstep.edu.missionutils.Console;
 import christmas.domain.event.VisitDate;
 import christmas.domain.menu.MenuItem;
 import christmas.domain.order.OrderItemFactory;
 import christmas.domain.order.OrderItems;
 import christmas.domain.order.OrderParser;
+import java.time.DateTimeException;
 import java.time.LocalDate;
 import java.util.Map;
 
@@ -19,12 +22,9 @@ public class InputView {
         try {
             System.out.println(EXPECTED_VISIT_DATE_PROMPT);
             int day = Integer.parseInt(Console.readLine());
-            return VisitDate.from(LocalDate.of(2023, 12, day));
-        } catch (NumberFormatException error) {
-            OutputView.printErrorMessage("유효하지 않은 날짜입니다. 다시 입력해 주세요.");
-            return readVisitDate();
-        } catch (IllegalArgumentException error) {
-            OutputView.printErrorMessage(error.getMessage());
+            return VisitDate.from(LocalDate.of(EVENT_YEAR, EVENT_MONTH, day));
+        } catch (IllegalArgumentException | DateTimeException error) {
+            OutputView.printErrorMessage(DATE_ERROR_PREFIX + RETRY_INPUT_MESSAGE);
             return readVisitDate();
         }
     }
