@@ -20,14 +20,14 @@ public class OrderParser {
         for (String item : inputs) {
             Matcher matcher = ORDER_PATTERN.matcher(item.trim());
             if (!matcher.matches()) {
-	throw new IllegalArgumentException(ORDER_ERROR_PREFIX + RETRY_INPUT_MESSAGE);
+	throw new IllegalArgumentException(ORDER_ERROR_PREFIX);
             }
             String menuName = matcher.group(1).trim();
             int quantity = Integer.parseInt(matcher.group(2).trim());
 
             if (orderItems.containsKey(menuName)) {
 	throw new IllegalArgumentException(
-	    ORDER_ERROR_PREFIX + RETRY_INPUT_MESSAGE);
+	    ORDER_ERROR_PREFIX);
             }
 
             orderItems.put(menuName, quantity);

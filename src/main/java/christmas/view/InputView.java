@@ -38,7 +38,7 @@ public class InputView {
 	parsedOrder);
             return OrderItems.from(convertedOrder);
         } catch (IllegalArgumentException error) {
-            OutputView.printErrorMessage(error.getMessage());
+            OutputView.printErrorMessage(error.getMessage() + RETRY_INPUT_MESSAGE);
             return readOrderMenu();
         }
     }

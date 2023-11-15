@@ -49,7 +49,11 @@ public class OutputView {
 
     public static void printPromotionItem(MenuItem item) {
         System.out.println(PROMOTION_MESSAGE);
-        System.out.println(item.getName() + " 1개");
+        if (item == MenuItem.CHAMPAGNE) {
+            System.out.println(item.getName() + " 1개");
+            return;
+        }
+        System.out.println(item.getName());
     }
 
     public static void printTotalBenefits(int totalBenefits) {
