@@ -49,7 +49,7 @@ public class OutputView {
 
     public static void printPromotionItem(MenuItem item) {
         System.out.println(PROMOTION_MESSAGE);
-        System.out.println(item.getName());
+        System.out.println(item.getName() + " 1개");
     }
 
     public static void printTotalBenefits(int totalBenefits) {
