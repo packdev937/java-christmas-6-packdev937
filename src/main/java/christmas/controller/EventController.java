@@ -33,8 +33,11 @@ public class EventController {
         TotalAmount totalAmount = eventFacadeService.calculateTotalAmount(orderItems);
         OutputView.printTotalAmountBeforeDiscount(totalAmount.value());
 
-        Promotion promotion = Promotion.from(totalAmount.value());
+    private Promotion displayPromotion(TotalAmount totalAmount) {
+        Promotion promotion = eventFacadeService.evaluatePromotion(totalAmount);
         OutputView.printPromotionItem(promotion.item());
+        return promotion;
+    }
 
         DiscountContext discountContext = DiscountContext.of(visitDate, orderItems);
         DiscountPolicies discountPolicies = DiscountPolicies.getInstance();

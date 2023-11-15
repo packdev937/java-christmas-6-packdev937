@@ -8,7 +8,11 @@ import christmas.domain.order.OrderItems;
 
 public class EventFacadeService {
 
-    public TotalAmount calculateTotalAmount(OrderItems orderItems) {
+    public Promotion evaluatePromotion(TotalAmount totalAmount) {
+        return Promotion.from(totalAmount.value());
+    }
+
+    public TotalAmount calculateTotalAmountBeforeDiscount(OrderItems orderItems) {
         int amount = orderItems.getOrderItems().entrySet().stream()
             .mapToInt(entry -> entry.getKey().getPrice() * entry.getValue())
             .sum();
