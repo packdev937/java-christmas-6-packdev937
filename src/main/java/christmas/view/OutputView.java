@@ -7,4 +7,9 @@ public class OutputView {
     public void displayEventStartMessage() {
         System.out.print(OutputMessage.EVENT_START_MESSAGE);
     }
+
+    public void displayEventAnnounceMessage(int month, int day) {
+        System.out.print(OutputMessage.EVENT_ANNOUCEMENT_MESSAGE.format(month, day));
+    }
+
 }
